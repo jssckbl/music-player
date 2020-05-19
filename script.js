@@ -16,10 +16,10 @@ const songs = ["hey", "summer", "ukulele"];
 let songIndex = 2;
 
 // Initially load song details into DOM
-loadSongs(songs[songIndex]);
+loadSong(songs[songIndex]);
 
 // Update song details
-function loadSongs(song) {
+function loadSong(song) {
   title.innerHTML = song;
   audio.src = `music/${song}.mp3`;
   cover.src = `images/${song}.jpg`;
@@ -42,6 +42,27 @@ function pauseSong() {
 
   audio.pause();
 }
+
+// Previous song
+function prevSong() {
+  songIndex--;
+  if (songIndex < 0) {
+    songIndex = songs.length - 1;
+  }
+  loadSong(songs[songIndex]);
+  playSong();
+}
+
+// Next song
+function nextSong() {
+  songIndex++;
+  if (songIndex > songs.length - 1) {
+    songIndex = 0;
+  }
+  loadSong(songs[songIndex]);
+  playSong();
+}
+
 // Event listeners
 playBtn.addEventListener("click", () => {
   const isPlaying = musicContainer.classList.contains("play");
@@ -52,3 +73,7 @@ playBtn.addEventListener("click", () => {
     playSong();
   }
 });
+
+// Change song
+prevBtn.addEventListener("click", prevSong);
+nextBtn.addEventListener("click", nextSong);
